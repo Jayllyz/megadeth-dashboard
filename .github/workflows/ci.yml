@@ -1,0 +1,35 @@
+---
+name: Continuous Integration
+
+on:
+    push:
+        branches:
+          - main
+    pull_request:
+        branches:
+          - main
+
+concurrency:
+    group: ${{ github.workflow }}-${{ github.ref }}
+    cancel-in-progress: true
+
+permissions:
+    contents: read
+    pull-requests: read
+
+env:
+    FORCE_COLOR: 1
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: 📦 Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: 🛠️ Setup Biome
+        uses: biomejs/setup-biome@v2
+
+      - name: 🚀 Run Biome
+        run: biome ci

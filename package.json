@@ -6,7 +6,8 @@
     "dev": "next dev --turbo",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "biome check --fix",
+    "ci": "biome ci"
   },
   "dependencies": {
     "@radix-ui/react-dropdown-menu": "^2.1.1",
