@@ -1,0 +1,17 @@
+# Development
+services:
+  app:
+    build:
+      context: .
+      target: dev
+      dockerfile: Dockerfile
+    tty: true
+    stdin_open: true
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - /app/node_modules
+      - .:/app:rw
+    ports:
+      - '${PORT}:${PORT}'
