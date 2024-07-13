@@ -5,6 +5,7 @@ import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/
 import { ScrollArea } from '@/components/ui/scroll-area';
 import type { AlbumSimplified, Artist, PagingObject, Track } from '@statsfm/spotify.js';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Bar, BarChart, LabelList, XAxis, YAxis } from 'recharts';
 import { ModeToggle } from './toggleTheme';
 
@@ -44,7 +45,9 @@ export default function MegadethDashboard({ artistInfo, topTracks, albums }: Meg
               )}
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <h1 className="text-5xl font-bold">{artistInfo?.name}</h1>
+                  <Link href={artistInfo?.external_urls.spotify}>
+                    <h1 className="text-5xl font-bold">{artistInfo?.name}</h1>
+                  </Link>
                   <ModeToggle />
                 </div>
                 <p className="text-xl text-muted-foreground">
@@ -114,24 +117,26 @@ export default function MegadethDashboard({ artistInfo, topTracks, albums }: Meg
           <CardContent>
             <ScrollArea className="h-[400px] w-full rounded-md border border-border p-4">
               {albums?.items.map((album: AlbumSimplified, i: number) => (
-                <div key={album.id}>
-                  <div className="flex items-center">
-                    {album.images.length > 0 && (
-                      <Image
-                        src={album.images[0].url}
-                        width={50}
-                        height={50}
-                        alt={`${album.name} cover`}
-                        className="rounded mr-4"
-                      />
-                    )}
-                    <div>
-                      <p className="text-sm font-medium leading-none">{album.name}</p>
-                      <p className="text-sm text-muted-foreground">{new Date(album.release_date).getFullYear()}</p>
+                <Link href={`${album.external_urls.spotify}`} key={album.id}>
+                  <div key={album.id}>
+                    <div className="flex items-center">
+                      {album.images.length > 0 && (
+                        <Image
+                          src={album.images[0].url}
+                          width={50}
+                          height={50}
+                          alt={`${album.name} cover`}
+                          className="rounded mr-4"
+                        />
+                      )}
+                      <div>
+                        <p className="text-sm font-medium leading-none">{album.name}</p>
+                        <p className="text-sm text-muted-foreground">{new Date(album.release_date).getFullYear()}</p>
+                      </div>
                     </div>
+                    {albums && i !== albums.items.length - 1 && <div className="border-b border-border my-2" />}
                   </div>
-                  {albums && i !== albums.items.length - 1 && <div className="border-b border-border my-2" />}
-                </div>
+                </Link>
               ))}
             </ScrollArea>
           </CardContent>

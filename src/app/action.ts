@@ -17,6 +17,7 @@ async function getMegadethTopTracks(): Promise<Track[]> {
 async function getMegadethAlbums(limit: number, offset: number): Promise<PagingObject<AlbumSimplified>> {
   const id = process.env.MEGADETH_ID as string;
   const albums = await api.artists.albums(id, { limit, offset });
+  albums.items = albums.items.sort((a, b) => b.release_date.localeCompare(a.release_date));
   return albums;
 }
 
