@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import type { AlbumSimplified, Artist, PagingObject, Track } from '@statsfm/spotify.js';
+import { Github } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Bar, BarChart, LabelList, XAxis, YAxis } from 'recharts';
@@ -48,7 +49,16 @@ export default function MegadethDashboard({ artistInfo, topTracks, albums }: Meg
                   <Link href={artistInfo?.external_urls.spotify}>
                     <h1 className="text-5xl font-bold">{artistInfo?.name}</h1>
                   </Link>
-                  <ModeToggle />
+                  <div className="flex items-center space-x-4">
+                    <Link
+                      href="https://github.com/Jayllyz/megadeth-dashboard"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Github className="w-6 h-6" />
+                    </Link>
+                    <ModeToggle />
+                  </div>
                 </div>
                 <p className="text-xl text-muted-foreground">
                   Megadeth is an iconic American heavy metal band formed in 1983. Known for their technical prowess and
