@@ -28,20 +28,8 @@ jobs:
       - name: 📦 Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: pnpm
-
       - name: 🛠️ Setup Biome
         uses: biomejs/setup-biome@v2
 
       - name: 🚀 Run Biome
         run: biome ci
-
-      - name: Build
-        run: pnpm install && pnpm build
