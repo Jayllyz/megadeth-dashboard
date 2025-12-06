@@ -1,6 +1,7 @@
-'use server';
 import MegadethDashboard from '@/components/MegadethDashboard';
 import { fetchMegadethData } from './action';
+
+export const dynamic = 'force-dynamic';
 
 export default async function Home() {
   const { artistInfo, topTracks, albums } = await fetchMegadethData();
